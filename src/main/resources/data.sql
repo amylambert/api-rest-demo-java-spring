@@ -8,3 +8,8 @@ INSERT INTO produits (nom, description, prix, stock) VALUES
 ('Webcam HD', 'Webcam 1080p avec micro intégré', 59.99, 90),
 ('Tapis de souris XXL', 'Tapis gaming 80x30cm antidérapant', 19.99, 300),
 ('Support laptop', 'Support réglable en aluminium', 34.99, 60);
+
+INSERT INTO utilisateurs (nom, prenom, email, age) VALUES
+('wawa', 'wewa', 'wwww@gmail.com', 3),
+('ouioui', 'baguette', 'raclette@proton.me', 78),
+('bwehh', 'bwahh', 'bwuhh@sfr.fr', 32);
