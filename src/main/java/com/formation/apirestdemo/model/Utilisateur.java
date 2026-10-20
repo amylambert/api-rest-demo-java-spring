@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.NotNull;
 
 
 /**
@@ -46,8 +47,9 @@ public class Utilisateur {
     private String email;
 
     /**
-    * Prix du produit. Doit être positif.
+    * Age de l'utilisateur. Doit être positif.
     */
+    @NotNull(message = "L'âge de l'utilisateur est obligatoire")
     @Positive(message = "L'âge doit être positif")
     @Column(nullable = false)
     private Integer age;
@@ -112,6 +114,6 @@ public class Utilisateur {
 
     @Override
     public String toString() {
-        return "Utilisateur{id=" + id + ", nom='" + nom + "', prenom=" + prenom + "', email=" + email + "', age=" + age + "}";
+        return "Utilisateur{id=" + id + ", nom='" + nom + "', prenom='" + prenom + "', email='" + email + "', age=" + age + "}";
     }
 }

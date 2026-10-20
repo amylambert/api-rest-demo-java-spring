@@ -75,7 +75,7 @@ public class UtilisateurService {
     /**
     * Recherche un utilisateur par email
     */
-    public Utilisateur rechercherParNom(String email) {
+    public Utilisateur rechercherParEmail(String email) {
         return utilisateurRepository.findByEmail(email);
     }
 }

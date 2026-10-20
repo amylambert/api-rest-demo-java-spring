@@ -5,7 +5,7 @@ import com.formation.apirestdemo.model.Utilisateur;
 public interface UtilisateurRepository extends JpaRepository<Utilisateur, Long> {
 
     /**
-    * Recherche des produits dont l'email correspond au paramètre
+    * Recherche des utilisateurs dont l'email correspond au paramètre
     */
     Utilisateur findByEmail(String email);
 }
