@@ -1,7 +1,7 @@
 package com.formation.apirestdemo.controller;
-import com.formation.apirestdemo.model.Produit;
 import com.formation.apirestdemo.model.Utilisateur;
-import com.formation.apirestdemo.service.ProduitService;
+import com.formation.apirestdemo.service.UtilisateurService;
+
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

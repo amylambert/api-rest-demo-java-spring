@@ -1,7 +1,6 @@
 package com.formation.apirestdemo.repository;
 import com.formation.apirestdemo.model.Produit;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 import java.util.List;
 
 
@@ -12,7 +11,6 @@ import java.util.List;
 *
 * Pas besoin d'écrire l'implémentation : Spring Data le fait pour nous.
 */
-@Repository
 public interface ProduitRepository extends JpaRepository<Produit, Long> {
 
     /**
