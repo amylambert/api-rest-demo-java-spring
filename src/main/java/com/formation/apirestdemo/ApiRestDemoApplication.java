@@ -12,6 +12,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ApiRestDemoApplication {
 	public static void main(String[] args) 
 	{
-	SpringApplication.run(ApiRestDemoApplication.class, args);
+	 SpringApplication.run(ApiRestDemoApplication.class, args);
 	}
 }
