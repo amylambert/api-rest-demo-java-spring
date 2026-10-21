@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 
-@RestController 
+@RestController
+@RequestMapping("/api/v1/bonjour")
 public class BonjourController {
     
     public BonjourController() {}
