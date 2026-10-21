@@ -1,6 +1,8 @@
 package com.formation.apirestdemo.service;
 import com.formation.apirestdemo.model.Produit;
 import com.formation.apirestdemo.repository.ProduitRepository;
+
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -13,13 +15,15 @@ import java.util.Optional;
 @Service
 public class ProduitService {
     private final ProduitRepository produitRepository;
+    private final NotificationService notificationService;
 
     /**
     * Injection de dépendance par constructeur.
     * Spring injecte automatiquement le ProduitRepository.
     */
-    public ProduitService(ProduitRepository produitRepository) {
+    public ProduitService(ProduitRepository produitRepository, @Qualifier ("emailNotificationService") NotificationService notificationService) {
         this.produitRepository = produitRepository;
+        this.notificationService = notificationService;
     }
 
     /**
@@ -41,10 +45,11 @@ public class ProduitService {
     * Crée un nouveau produit.
     * @param produit Le produit à créer (sans ID).
     * @return Le produit créé (avec ID généré).
-    */
+    */ 
     public Produit creer(Produit produit) {
         // On s'assure que l'ID est null pour forcer une création (pas une mise à jour)
         produit.setId(null);
+        notificationService.notifier("stock", "Nouveau produit : " + produit.toString());
         return produitRepository.save(produit);
     }
 
