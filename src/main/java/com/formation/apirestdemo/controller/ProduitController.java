@@ -1,6 +1,9 @@
 package com.formation.apirestdemo.controller;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -42,10 +45,12 @@ public class ProduitController {
     // GET /api/v1/produits — Lister tous les produits
     // ============================================================
     @GetMapping
-    public ResponseEntity<List<Produit>> listerTous() {
-        List<Produit> produits = produitService.recupererTous();
-        return ResponseEntity.ok(produits); // 200 OK
+    public ResponseEntity<Page<ProduitResponse>> listerTous(@PageableDefault(size = 10, sort = "nom") Pageable pageable) {
+        Page<ProduitResponse> page = produitService.recupererTous(pageable)
+        .map(ProduitMapper::versResponse);
+        return ResponseEntity.ok(page);
     }
+
 
     // ============================================================
     // GET /api/v1/produits/{id} — Obtenir un produit par son ID

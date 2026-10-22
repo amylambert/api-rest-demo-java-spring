@@ -1,11 +1,14 @@
 package com.formation.apirestdemo.service;
-import com.formation.apirestdemo.model.Produit;
-import com.formation.apirestdemo.repository.ProduitRepository;
-
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
+import com.formation.apirestdemo.model.Produit;
+import com.formation.apirestdemo.repository.ProduitRepository;
 
 /**
 * Service contenant la logique métier pour les produits.
@@ -29,9 +32,10 @@ public class ProduitService {
     /**
     * Retourne tous les produits.
     */
-    public List<Produit> recupererTous() {
-        return produitRepository.findAll();
+    public Page<Produit> recupererTous(Pageable pageable) {
+        return produitRepository.findAll(pageable);
     }
+
 
     /**
     * Retourne un produit par son ID.
