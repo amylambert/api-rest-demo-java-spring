@@ -1,11 +1,25 @@
 package com.formation.apirestdemo.controller;
-import com.formation.apirestdemo.model.Produit;
-import com.formation.apirestdemo.service.ProduitService;
-import jakarta.validation.Valid;
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import java.util.List;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.formation.apirestdemo.dto.ProduitRequest;
+import com.formation.apirestdemo.dto.ProduitResponse;
+import com.formation.apirestdemo.mapper.ProduitMapper;
+import com.formation.apirestdemo.model.Produit;
+import com.formation.apirestdemo.service.ProduitService;
+
+import jakarta.validation.Valid;
 
 /**
 * Contrôleur REST pour les produits.
@@ -37,21 +51,22 @@ public class ProduitController {
     // GET /api/v1/produits/{id} — Obtenir un produit par son ID
     // ============================================================
     @GetMapping("/{id}")
-    public ResponseEntity<Produit> obtenirParId(@PathVariable Long id) {
+    public ResponseEntity<ProduitResponse> obtenirParId(@PathVariable Long id) {
         return produitService.recupererParId(id)
-        .map(ResponseEntity::ok) // 200 OK si trouvé
-        .orElse(ResponseEntity.notFound().build()); // 404 si non trouvé
+        .map(ProduitMapper::versResponse)
+        .map(ResponseEntity::ok)
+        .orElse(ResponseEntity.notFound().build());
     }
 
     // ============================================================
     // POST /api/v1/produits — Créer un nouveau produit
     // ============================================================
     @PostMapping
-    public ResponseEntity<Produit> creer(@Valid @RequestBody Produit produit) {
-        Produit produitCree = produitService.creer(produit);
-        return ResponseEntity
-            .status(HttpStatus.CREATED) // 201 Created
-            .body(produitCree);
+    public ResponseEntity<ProduitResponse> creer(@Valid @RequestBody ProduitRequest request) {
+        Produit entite = ProduitMapper.versEntite(request);
+        Produit produitCree = produitService.creer(entite);
+        ProduitResponse response = ProduitMapper.versResponse(produitCree);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     // ============================================================
